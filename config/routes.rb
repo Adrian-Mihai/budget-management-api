@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   post :authenticate, controller: 'application'
 
-  namespace :authenticated do
+  namespace :authenticate do
     get  :decode, controller: 'authentication'
   end
 

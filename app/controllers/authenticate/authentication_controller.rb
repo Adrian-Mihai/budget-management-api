@@ -1,4 +1,4 @@
-module Authenticated
+module Authenticate
   class AuthenticationController < ApplicationController
     before_action :authorize
 

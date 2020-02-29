@@ -10,7 +10,8 @@ module Token
         private
 
         def expiration
-          (ENV['JWT_TOKEN_LIFE_TIME'] || 60).to_i.minutes.from_now
+          life_time = ENV.fetch('JWT_TOKEN_LIFE_TIME') { 60 }.to_i.minutes
+          Integer(Time.current + life_time)
         end
       end
     end
