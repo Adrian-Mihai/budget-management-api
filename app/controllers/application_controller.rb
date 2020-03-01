@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::API
+  def home
+    render json: { welcome: I18n.t('hello') }, status: :ok
+  end
+
   def authenticate
     @user = User.find_by!(email: user_params[:email])
 
