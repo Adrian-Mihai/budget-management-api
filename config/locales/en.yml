@@ -30,4 +30,6 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  hello: "Hello Budget Management API"
+  errors:
+    unauthenticated: "You are not authenticate"
