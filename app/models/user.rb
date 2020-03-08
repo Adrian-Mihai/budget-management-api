@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   has_secure_password
 
+  has_one :budget, dependent: :destroy
+  has_many :transactions, dependent: :destroy
+
   validates :uuid, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
