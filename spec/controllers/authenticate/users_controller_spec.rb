@@ -1,4 +1,4 @@
-RSpec.describe Authenticate::AuthenticationController, type: :controller do
+RSpec.describe Authenticate::UsersController, type: :controller do
   describe 'GET #decode' do
     subject { get :decode }
 

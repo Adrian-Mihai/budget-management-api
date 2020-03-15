@@ -17,6 +17,9 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/AsciiComments:
+  AllowedChars: ["€"]
+
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'

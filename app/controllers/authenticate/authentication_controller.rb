@@ -2,10 +2,6 @@ module Authenticate
   class AuthenticationController < ApplicationController
     before_action :authorize
 
-    def decode
-      render json: @payload.except(:exp), status: :ok
-    end
-
     private
 
     def authorize

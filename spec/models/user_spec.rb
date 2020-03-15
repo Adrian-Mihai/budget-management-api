@@ -1,6 +1,10 @@
 RSpec.describe User, type: :model do
+  describe 'associations' do
+    it { should have_one(:budget) }
+  end
+
   describe 'validations' do
-    subject { FactoryBot.create(:user) }
+    subject { create(:user) }
 
     it { should validate_presence_of(:uuid) }
     it { should validate_presence_of(:email) }
