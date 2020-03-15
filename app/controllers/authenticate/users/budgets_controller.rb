@@ -13,7 +13,7 @@ module Authenticate
       private
 
       def budget_params
-        params.require(:budget).permit(:amount, transactions_attributes: %i[operator amount pay_day description])
+        params.require(:budget).permit(:amount, transactions_attributes: %i[operator amount description])
       end
     end
   end

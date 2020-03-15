@@ -17,6 +17,8 @@ require 'rails_helper'
 require 'database_cleaner/active_record'
 require 'money-rails/test_helpers'
 
+Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

@@ -13,7 +13,7 @@ module Authenticate
       private
 
       def transaction_params
-        params.require(:transaction).permit(:operator, :amount, :description, :pay_day)
+        params.require(:transaction).permit(:operator, :amount, :description)
       end
     end
   end

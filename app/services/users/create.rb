@@ -1,5 +1,7 @@
 module Users
   class Create < Base
+    attr_reader :user
+
     def initialize(parameters:)
       @parameters = parameters
       @errors = []

@@ -5,8 +5,7 @@ class CreateTransactions < ActiveRecord::Migration[6.0]
       t.string :uuid, null: false, index: { unique: true }
       t.string :operator, null: false
       t.monetize :amount
-      t.date :pay_day, null: false
-      t.text :description, null: false, default: ''
+      t.text :description, default: '', null: false
 
       t.timestamps
     end

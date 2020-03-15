@@ -1,5 +1,7 @@
 module Transactions
   class Create < Base
+    attr_reader :transaction
+
     def initialize(parameters:)
       @parameters = parameters
       @errors = []

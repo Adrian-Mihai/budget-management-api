@@ -1,5 +1,7 @@
 module Budgets
   class Create < Base
+    attr_reader :budget
+
     def initialize(parameters:)
       @parameters = parameters
       @errors = []

@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 2020_03_08_182800) do
     t.string "operator", null: false
     t.integer "amount_cents", default: 0, null: false
     t.string "amount_currency", default: "RON", null: false
-    t.date "pay_day", null: false
     t.text "description", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
