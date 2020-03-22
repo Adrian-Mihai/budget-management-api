@@ -1,11 +1,10 @@
 RSpec.describe Transactions::Create do
-  subject { described_class.new(parameters: parameters).call }
+  subject { described_class.new(user_id: user.id, parameters: parameters).call }
 
   describe '.call' do
-    let!(:budget) { create(:budget, amount: 1) }
+    let!(:user) { create(:user) }
     let(:parameters) do
       {
-        budget_id: budget.id,
         uuid: SecureRandom.uuid,
         operator: :+,
         amount: 1,
@@ -17,9 +16,13 @@ RSpec.describe Transactions::Create do
       expect { subject }.to change { Transaction.count }.by(1)
     end
 
-    it 'should update budget amount' do
+    it 'should create a new Budget' do
+      expect { subject }.to change { Budget.count }.by(1)
+    end
+
+    it 'should update user budget amount' do
       subject
-      expect(budget.reload.amount).to eq(Money.new(200))
+      expect(user.budget.reload.amount).to eq(Money.new(100))
     end
 
     include_examples 'valid and not contain errors'

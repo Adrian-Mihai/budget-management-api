@@ -2,13 +2,14 @@ module Transactions
   class Create < Base
     attr_reader :transaction
 
-    def initialize(parameters:)
-      @parameters = parameters
+    def initialize(user_id:, parameters:)
+      @user_id = user_id
+      @parameters = parameters || {}
       @errors = []
     end
 
     def call
-      @transaction = Transaction.new(@parameters)
+      @transaction = Transaction.new(@parameters.merge(budget: budget))
       check(@transaction)
       return self unless valid?
 
@@ -24,7 +25,9 @@ module Transactions
     private
 
     def budget
-      @budget ||= @transaction.budget
+      @budget ||= Budget.find_or_initialize_by(user_id: @user_id) do |budget|
+        budget.uuid = SecureRandom.uuid
+      end
     end
 
     def calculate_budget_amount
