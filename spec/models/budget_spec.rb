@@ -2,7 +2,6 @@ RSpec.describe Budget, type: :model do
   describe 'associations' do
     it { should belong_to(:user) }
     it { should have_many(:transactions) }
-    it { should accept_nested_attributes_for(:transactions) }
     it { should have_db_index(:user_id).unique }
   end
 

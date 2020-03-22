@@ -8,10 +8,7 @@ Rails.application.routes.draw do
       get :decode, on: :collection
     end
 
-    namespace :users do
-      resources :budgets, only: :create
-      resources :transactions, only: :create
-    end
+    resources :transactions, only: :create
   end
 
   resources :users, only: :create do
