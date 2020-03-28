@@ -4,7 +4,7 @@ module Token
       class << self
         def call(user_uuid:, user_email:)
           payload = { user_uuid: user_uuid, user_email: user_email, exp: expiration.to_i }
-          JWT.encode(payload, Rails.application.secrets.secret_key_base)
+          JWT.encode(payload, Rails.application.credentials.secret_key_base)
         end
 
         private

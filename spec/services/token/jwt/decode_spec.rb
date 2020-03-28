@@ -5,7 +5,7 @@ describe Token::Jwt::Decode do
   let(:payload) { { user_email: Faker::Internet.safe_email, user_uuid: SecureRandom.uuid } }
 
   before do
-    allow(Rails.application.secrets).to receive(:secret_key_base).and_return('mock-key')
+    allow(Rails.application.credentials).to receive(:secret_key_base).and_return('mock-key')
     allow(JWT).to receive(:decode).with(token, 'mock-key').and_return([payload])
   end
 
