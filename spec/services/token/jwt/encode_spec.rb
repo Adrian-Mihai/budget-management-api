@@ -15,7 +15,7 @@ describe Token::Jwt::Encode do
   end
 
   before do
-    allow(Rails.application.secrets).to receive(:secret_key_base).and_return('mock-key')
+    allow(Rails.application.credentials).to receive(:secret_key_base).and_return('mock-key')
     allow(JWT).to receive(:encode).with(payload, 'mock-key').and_return('mock-token')
   end
 

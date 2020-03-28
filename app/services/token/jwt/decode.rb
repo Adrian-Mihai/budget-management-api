@@ -3,7 +3,7 @@ module Token
     class Decode
       class << self
         def call(token:)
-          payload = JWT.decode(token, Rails.application.secrets.secret_key_base)[0]
+          payload = JWT.decode(token, Rails.application.credentials.secret_key_base)[0]
           HashWithIndifferentAccess.new payload
         end
       end
