@@ -44,7 +44,7 @@ before_fork do
     config.rolling_restart_frequency = 12 * 3600 # 12 hours in seconds, or 12.hours if using Rails
     config.reaper_status_logs = true
 
-    config.pre_term = -> (worker) { puts "Worker #{worker.inspect} being killed" }
+    config.pre_term = ->(worker) { Rails.logger.info "Worker #{worker.inspect} being killed" }
   end
   PumaWorkerKiller.start
 end
