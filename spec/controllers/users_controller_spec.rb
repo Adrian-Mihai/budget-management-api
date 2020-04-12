@@ -58,17 +58,18 @@ RSpec.describe UsersController, type: :controller do
 
       context 'when password param math user password' do
         let(:password) { user.password }
-        let(:token) { 'mock-token' }
+        let(:expected_response) { { token: 'mock-token', expiration: 1800 } }
 
         before do
-          allow(Token::Jwt::Encode).to receive(:call).with(user_uuid: user.uuid, user_email: email).and_return(token)
+          allow(Token::Jwt::Encode).to receive(:call).with(user_uuid: user.uuid, user_email: email)
+                                                     .and_return(expected_response)
         end
 
         it { should have_http_status(:created) }
 
-        it 'should return the encoded token' do
+        it 'should return the encoded token and expiration time' do
           subject
-          expect(JSON.parse(response.body, symbolize_names: true)).to eq(token: token)
+          expect(JSON.parse(response.body, symbolize_names: true)).to eq(expected_response)
         end
       end
 
@@ -90,11 +91,11 @@ RSpec.describe UsersController, type: :controller do
 
       before { allow(User).to receive(:find_by!).and_raise(ActiveRecord::RecordNotFound, 'User not found') }
 
-      it { should have_http_status(:not_found) }
+      it { should have_http_status(:unauthorized) }
 
       it 'should return a error message' do
         subject
-        expect(JSON.parse(response.body, symbolize_names: true)).to eq(error: 'User not found')
+        expect(JSON.parse(response.body, symbolize_names: true)).to eq(error: I18n.t('errors.unauthenticated'))
       end
     end
   end

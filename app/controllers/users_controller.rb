@@ -14,10 +14,10 @@ class UsersController < ApplicationController
       return render json: response, status: :unauthorized
     end
 
-    token = Token::Jwt::Encode.call(user_uuid: @user.uuid, user_email: @user.email)
-    render json: { token: token }, status: :created
-  rescue ActiveRecord::RecordNotFound => e
-    render json: { error: e.message }, status: :not_found
+    response = Token::Jwt::Encode.call(user_uuid: @user.uuid, user_email: @user.email)
+    render json: response, status: :created
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: I18n.t('errors.unauthenticated') }, status: :unauthorized
   end
 
   private

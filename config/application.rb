@@ -13,7 +13,7 @@ require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
 # require "sprockets/railtie"
-require 'rails/test_unit/railtie'
+# require 'rails/test_unit/railtie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -28,8 +28,13 @@ module BudgetManagementApi
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    config.logger = Logger.new(STDOUT)
-    config.logger.datetime_format = '%d-%m-%Y %H:%M:%S'
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: %i[get post put options delete patch]
+      end
+    end
 
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
