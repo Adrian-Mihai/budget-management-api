@@ -23,7 +23,7 @@ describe Token::Jwt::Encode do
     before { stub_env('JWT_TOKEN_LIFE_TIME', 30) }
 
     it 'should use the token life time env variable' do
-      expect(subject).to eq('mock-token')
+      expect(subject).to eq(token: 'mock-token', expiration: 1800)
     end
   end
 
@@ -31,7 +31,7 @@ describe Token::Jwt::Encode do
     let(:expiration) { Integer(Time.current + 60.minutes) }
 
     it 'should use the the default value' do
-      expect(subject).to eq('mock-token')
+      expect(subject).to eq(token: 'mock-token', expiration: 3600)
     end
   end
 end
