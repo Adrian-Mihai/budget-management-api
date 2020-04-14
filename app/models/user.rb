@@ -7,4 +7,8 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 8 }
 
   has_one :budget, dependent: :destroy
+
+  def username
+    name || email.split('@').first
+  end
 end

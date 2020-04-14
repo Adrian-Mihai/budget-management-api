@@ -17,4 +17,22 @@ RSpec.describe User, type: :model do
       it { should_not allow_value('email.example').for(:email) }
     end
   end
+
+  describe '#username' do
+    let(:name) { Faker::Name.name }
+    let!(:user) { create(:user, name: name) }
+
+    it 'should return the name' do
+      expect(user.username).to eq(name)
+    end
+
+    context 'when name do not exist' do
+      let(:email) { Faker::Internet.safe_email }
+      let!(:user) { create(:user, name: nil, email: email) }
+
+      it 'should return the parsed email' do
+        expect(user.username).to eq(user.email.split('@').first)
+      end
+    end
+  end
 end

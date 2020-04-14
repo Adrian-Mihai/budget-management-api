@@ -1,7 +1,9 @@
 module Authenticate
   class UsersController < AuthenticationController
     def decode
-      render json: @payload.except(:exp), status: :ok
+      user_info = @payload.except(:exp)
+      user_info.merge!(username: @current_user.username)
+      render json: user_info, status: :ok
     end
   end
 end

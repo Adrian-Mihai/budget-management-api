@@ -3,7 +3,8 @@ class UsersController < ApplicationController
     result = Users::Create.new(parameters: user_params.merge(uuid: SecureRandom.uuid)).call
     return render json: { errors: result.errors }, status: :unprocessable_entity unless result.valid?
 
-    render status: :created
+    response = Token::Jwt::Encode.call(user_uuid: result.user.uuid, user_email: result.user.email)
+    render json: response, status: :created
   end
 
   def authenticate
