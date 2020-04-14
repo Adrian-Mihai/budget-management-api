@@ -11,11 +11,21 @@ RSpec.describe UsersController, type: :controller do
     let(:email) { Faker::Internet.safe_email }
     let(:password) { Faker::Internet.password(min_length: 8) }
     let(:password_confirmation) { password }
+    let(:expected_response) { { token: 'mock-token', expiration: 1800 } }
+
+    before do
+      allow(Token::Jwt::Encode).to receive(:call).and_return(expected_response)
+    end
 
     it { should have_http_status(:created) }
 
     it 'should create a new User instance' do
       expect { subject }.to change { User.count }.by(1)
+    end
+
+    it 'should return a token for user' do
+      subject
+      expect(JSON.parse(response.body, symbolize_names: true)).to eq(expected_response)
     end
 
     context 'when password length is less than 8 characters' do

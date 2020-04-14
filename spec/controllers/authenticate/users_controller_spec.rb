@@ -5,11 +5,11 @@ RSpec.describe Authenticate::UsersController, type: :controller do
     let(:payload) do
       {
         user_uuid: SecureRandom.uuid,
-        user_email: Faker::Internet.safe_email,
-        exp: Integer(Time.current)
+        user_email: Faker::Internet.safe_email
       }
     end
-    let!(:user) { FactoryBot.create(:user, uuid: payload[:user_uuid]) }
+    let!(:user) { create(:user, uuid: payload[:user_uuid]) }
+    let(:username) { user.name }
 
     before { allow(Token::Jwt::Decode).to receive(:call).and_return(payload) }
 
@@ -17,7 +17,7 @@ RSpec.describe Authenticate::UsersController, type: :controller do
 
     it 'should return the decoded token' do
       subject
-      expect(JSON.parse(response.body, symbolize_names: true)).to eq(payload.except(:exp))
+      expect(JSON.parse(response.body, symbolize_names: true)).to eq(payload.merge(username: username))
     end
 
     context 'when user do not exist' do
