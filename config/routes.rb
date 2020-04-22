@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       get :decode, on: :collection
     end
 
+    resources :graphs, only: %i[show]
+
     resources :transactions, only: :create
   end
 
