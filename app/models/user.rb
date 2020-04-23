@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { minimum: 8 }
 
-  has_one :budget, dependent: :destroy
+  has_many :transactions, dependent: :destroy
 
   def username
     name || email.split('@').first

@@ -3,6 +3,7 @@ class Transaction < ApplicationRecord
 
   validates :uuid, presence: true, uniqueness: true
   validates :operator, presence: true, inclusion: { in: %w[+ -] }
+  validates :creation_date, presence: true
 
-  belongs_to :budget
+  belongs_to :user
 end

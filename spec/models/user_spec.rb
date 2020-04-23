@@ -1,6 +1,6 @@
 RSpec.describe User, type: :model do
   describe 'associations' do
-    it { should have_one(:budget) }
+    it { should have_many(:transactions) }
   end
 
   describe 'validations' do
