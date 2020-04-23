@@ -10,32 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_08_182800) do
+ActiveRecord::Schema.define(version: 2020_04_22_193129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "budgets", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "uuid", null: false
-    t.integer "amount_cents", default: 0, null: false
-    t.string "amount_currency", default: "RON", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_budgets_on_user_id", unique: true
-    t.index ["uuid"], name: "index_budgets_on_uuid", unique: true
-  end
-
   create_table "transactions", force: :cascade do |t|
-    t.bigint "budget_id"
     t.string "uuid", null: false
     t.string "operator", null: false
     t.integer "amount_cents", default: 0, null: false
     t.string "amount_currency", default: "RON", null: false
     t.text "description", default: "", null: false
+    t.bigint "user_id"
+    t.datetime "creation_date", precision: 6, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["budget_id"], name: "index_transactions_on_budget_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
     t.index ["uuid"], name: "index_transactions_on_uuid", unique: true
   end
 
@@ -50,6 +40,5 @@ ActiveRecord::Schema.define(version: 2020_03_08_182800) do
     t.index ["uuid"], name: "index_users_on_uuid", unique: true
   end
 
-  add_foreign_key "budgets", "users"
-  add_foreign_key "transactions", "budgets"
+  add_foreign_key "transactions", "users"
 end

@@ -1,5 +1,5 @@
 RSpec.describe Authenticate::TransactionsController do
-  subject { post :create, params: { transaction: { operator: :+, amount: 1, description: 'test' } } }
+  subject { post :create, params: { transaction: { operator: :+, amount: 1, description: 'test', creation_date: Time.zone.now } } }
 
   describe 'POST #create' do
     let!(:user) { create(:user) }
@@ -12,12 +12,8 @@ RSpec.describe Authenticate::TransactionsController do
       expect { subject }.to change { Transaction.count }.by(1)
     end
 
-    it 'should create a Budget' do
-      expect { subject }.to change { Budget.count }.by(1)
-    end
-
     context 'when parameters are invalid' do
-      subject { post :create, params: { transaction: { operator: '', amount: -1, description: 'test' } } }
+      subject { post :create, params: { transaction: { operator: '', amount: -1, description: 'test', creation_date: Time.zone.now } } }
 
       it { should have_http_status(:unprocessable_entity) }
     end

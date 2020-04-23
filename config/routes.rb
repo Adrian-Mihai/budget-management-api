@@ -7,9 +7,7 @@ Rails.application.routes.draw do
     resources :users, only: %i[] do
       get :decode, on: :collection
     end
-
-    resources :graphs, only: %i[show]
-
+    
     resources :transactions, only: :create
   end
 
