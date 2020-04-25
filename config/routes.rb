@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   namespace :authenticate do
     resources :users, only: %i[] do
       get :decode, on: :collection
+
+      resources :transactions, only: %i[index]
     end
     
     resources :transactions, only: :create

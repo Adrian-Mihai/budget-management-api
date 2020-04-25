@@ -1,5 +1,12 @@
 module Authenticate
   class TransactionsController < AuthenticationController
+    def index
+      @transactions = @current_user.transactions
+      serialized = ActiveModel::Serializer::ArraySerializer.new(@transactions,
+                                                                serializer: ::Authenticate::TransactionSerializer)
+      render json: { transactions: serialized }, status: :ok
+    end
+
     def create
       result = Transactions::Create.new(parameters: transaction_params.merge(uuid: SecureRandom.uuid,
                                                                              user_id: @current_user.id)).call
