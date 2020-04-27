@@ -82,7 +82,7 @@ MoneyRails.configure do |config|
 
   # If you would like to use I18n localization (formatting depends on the
   # locale):
-  # config.locale_backend = :i18n
+  config.locale_backend = :i18n
   #
   # Example (using default localization from rails-i18n):
   #
@@ -101,7 +101,7 @@ MoneyRails.configure do |config|
   #
   # In case you don't need localization and would like to use default values
   # (can be redefined using config.default_format):
-  config.locale_backend = nil
+  # config.locale_backend = nil
 
   # Set default raise_error_on_money_parsing option
   # It will be raise error if assigned different currency
