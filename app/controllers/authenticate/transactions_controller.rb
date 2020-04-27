@@ -1,5 +1,7 @@
 module Authenticate
   class TransactionsController < AuthenticationController
+    before_action :check_user_id, only: :index
+
     def index
       @transactions = @current_user.transactions.order(creation_date: :desc).page(params[:page])
       total_pages = @transactions.total_pages
@@ -22,6 +24,11 @@ module Authenticate
 
     def transaction_params
       params.require(:transaction).permit(:operator, :amount, :description, :creation_date)
+    end
+
+    def check_user_id
+      message = I18n.t('errors.unauthenticated')
+      render json: { error: message }, status: :unauthorized if params[:user_id] != @current_user.uuid
     end
   end
 end
