@@ -9,8 +9,7 @@ RSpec.describe Transactions::Create do
         user_id: user.id,
         operator: :+,
         amount: 1,
-        description: 'Tet',
-        creation_date: Time.zone.now
+        description: 'Test'
       }
     end
 

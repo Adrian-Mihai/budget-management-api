@@ -4,13 +4,13 @@ Rails.application.routes.draw do
   root 'home#index'
 
   namespace :authenticate do
-    resources :users, only: %i[] do
-      get :decode, on: :collection
-
-      resources :transactions, only: %i[index]
+    namespace :users do
+      resources :transactions, only: %i[index create destroy]
     end
 
-    resources :transactions, only: :create
+    resources :users, only: %i[] do
+      get :decode, on: :collection
+    end
   end
 
   resources :users, only: :create do
