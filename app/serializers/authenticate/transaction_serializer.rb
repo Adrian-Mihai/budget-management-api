@@ -7,7 +7,7 @@ module Authenticate
     end
 
     def date
-      object.creation_date.strftime('%d-%m-%Y %T')
+      object.updated_at.strftime('%d-%m-%Y %T')
     end
   end
 end

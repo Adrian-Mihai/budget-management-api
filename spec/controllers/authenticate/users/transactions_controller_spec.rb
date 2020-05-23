@@ -1,4 +1,4 @@
-RSpec.describe Authenticate::TransactionsController do
+RSpec.describe Authenticate::Users::TransactionsController do
   describe 'GET #index' do
     let!(:user) { create(:user) }
     let(:user_id) { user.uuid }
@@ -14,7 +14,7 @@ RSpec.describe Authenticate::TransactionsController do
           transactions: [{
             uuid: transaction.uuid,
             amount: transaction.amount.format,
-            date: transaction.creation_date.strftime('%d-%m-%Y %T'),
+            date: transaction.updated_at.strftime('%d-%m-%Y %T'),
             description: transaction.description,
             operator: transaction.operator
           }],
@@ -56,19 +56,6 @@ RSpec.describe Authenticate::TransactionsController do
       end
     end
 
-    context 'when user_id do not match jwt payload' do
-      let(:user_id) { 1 }
-
-      before { allow(Token::Jwt::Decode).to receive(:call).and_return({ user_uuid: user.uuid }) }
-
-      it { should have_http_status(:unauthorized) }
-
-      it 'should respond with a error message' do
-        subject
-        expect(JSON.parse(response.body, symbolize_names: true)).to eq(error: I18n.t('errors.unauthenticated'))
-      end
-    end
-
     context 'when token decode raise a error' do
       before { allow(Token::Jwt::Decode).to receive(:call).and_raise(JWT::DecodeError.new('Session expired')) }
 
@@ -82,7 +69,7 @@ RSpec.describe Authenticate::TransactionsController do
   end
 
   describe 'POST #create' do
-    let(:data) { { transaction: { operator: :+, amount: 1, description: 'test', creation_date: Time.zone.now } } }
+    let(:data) { { transaction: { operator: :+, amount: 1, description: 'test' } } }
 
     subject { post :create, params: data }
 
@@ -97,7 +84,7 @@ RSpec.describe Authenticate::TransactionsController do
     end
 
     context 'when parameters are invalid' do
-      let(:data) { { transaction: { operator: '', amount: -1, description: 'test', creation_date: Time.zone.now } } }
+      let(:data) { { transaction: { operator: '', amount: -1, description: 'test' } } }
 
       it { should have_http_status(:unprocessable_entity) }
     end
