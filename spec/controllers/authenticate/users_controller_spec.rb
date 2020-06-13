@@ -29,7 +29,7 @@ RSpec.describe Authenticate::UsersController, type: :controller do
 
       it 'should respond with a error message' do
         subject
-        expect(JSON.parse(response.body, symbolize_names: true)).to eq(error: 'Couldn\'t find User')
+        expect(JSON.parse(response.body, symbolize_names: true)).to eq(error: I18n.t('errors.not_found'))
       end
     end
 

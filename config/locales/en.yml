@@ -33,3 +33,4 @@ en:
   hello: "Hello Budget Management API"
   errors:
     unauthenticated: "You are not authenticate"
+    not_found: "Record not found"

@@ -13,7 +13,7 @@ RSpec.describe Authenticate::Users::TransactionsController do
         {
           transactions: [{
             uuid: transaction.uuid,
-            amount: transaction.amount.format,
+            amount: transaction.amount.format(thousands_separator: '.', decimal_mark: ','),
             date: transaction.updated_at.strftime('%d-%m-%Y %T'),
             description: transaction.description,
             operator: transaction.operator
