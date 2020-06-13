@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   namespace :authenticate do
     namespace :users do
-      resources :transactions, only: %i[index create destroy]
+      resources :transactions, only: %i[index show create update destroy]
     end
 
     resources :users, only: %i[] do

@@ -3,7 +3,7 @@ module Authenticate
     attributes :uuid, :operator, :amount, :description, :date
 
     def amount
-      object.amount.format
+      object.amount.format(thousands_separator: '.', decimal_mark: ',')
     end
 
     def date
